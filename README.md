@@ -11,3 +11,15 @@
 - Create an Outlet in your Body Component
 - Create a footer
 - Create a Login Page
+- Install axios
+- CORS - in backend - install cors and add middleware with configuration with origin and credentials:true.
+- CORS - in frontend - Whenever you are making an API call using axios pass => {withCredentials: true}
+- Install Redux Toolkit and react-redux
+- Configure appStore and it's Slices etc.
+- Login and see if your data is coming properly in the store.
+- NavBar should update as soon as user login
+- Refactor the code to add constants file
+- You should not be accessing other routes without login
+- If token is not present redirect user to login page
+- Logout feature
+-  
