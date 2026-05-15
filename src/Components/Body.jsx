@@ -19,8 +19,12 @@ const user = useSelector((store)=>{return store.user})
       const profile = await axios.get(`${BASE_URL}/profile/view`,{withCredentials:true})
       dispatch(addUser(profile.data))
     } catch (error) {
-    if (error.status === 401) {
+    if (error.status === 401 ) {
       navigate('/login')
+    }else if(error.response){
+      if (error.status === 400 && error.response.data.includes('jwt expired')) {
+      navigate('/login')
+      }
     }
     console.log(error);
     }

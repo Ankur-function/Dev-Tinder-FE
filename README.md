@@ -22,4 +22,8 @@
 - You should not be accessing other routes without login
 - If token is not present redirect user to login page
 - Logout feature
--  
+- Get the feed and add the feed in the store
+- Build the user card on the feed
+- Edit profile feature
+- Show Toast Message on save profile
+- See all my connections
