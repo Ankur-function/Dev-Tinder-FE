@@ -1,52 +1,55 @@
-import axios from "axios"
-import { BASE_URL } from "../utils/constants"
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { addConnection } from "../utils/slices/connectionsSlice"
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addRequest } from "../utils/slices/requestSlice";
 
-const Connections = () =>{
+const Requests = () =>{
+
     const dispatch = useDispatch();
-    const connections = useSelector((store)=>{return store.connection});
-
-    const fetchConnections = async() =>{
-        const resp = await axios.get(`${BASE_URL}/user/requests/connected`,{withCredentials:true})
-        dispatch(addConnection(resp.data.data));
+    const requests = useSelector((store)=>{return store.request})
+    const fetchAllRequests = async() => {
+        try {
+        const resp = await axios.get(`${BASE_URL}/user/requests/received`,{withCredentials:true});
+        dispatch(addRequest(resp.data.data))
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(()=>{
-        fetchConnections()
+        fetchAllRequests();
     },[])
 
-    if (!connections) return
-    if (connections && connections.length === 0) return <h1>No Connection Available</h1>
-    
-    return(
-
-        <div className="flex flex-col items-center justify-center p-4 my-10 max-w-2xl mx-auto">
+      if (!requests) return
+    if (requests && requests.length === 0) return <h1>No Requests Available</h1>
+    return (
+               <div className="flex flex-col items-center justify-center p-4 my-10 max-w-2xl mx-auto">
   {/* Header Section */}
   <div className="text-center mb-8">
     <h1 className="text-3xl font-extrabold tracking-tight text-base-content">
-      Connections
+     All Requests
     </h1>
     <p className="text-sm text-base-content/60 mt-1">
-      You have {connections.length} active connections
+      You have total {requests.length} requests
     </p>
   </div>
 
   {/* Connections Container */}
   <div className="w-full flex flex-col gap-4">
-    {connections.map((connect) => {
+    {requests.map((request) => {
+        const {firstName,lastName,age, gender,about,photoUrl} = request.senderUserId;
       return (
         <div 
-          key={connect._id} 
+          key={request._id} 
           className="flex flex-col sm:flex-row items-center gap-4 bg-base-100 p-5 rounded-2xl shadow-md border border-base-300 hover:shadow-lg transition-all duration-200"
         >
           {/* Avatar Profile Photo Wrapper */}
           <div className="avatar">
             <div className="w-16 h-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img 
-                src={connect.photoUrl || "https://placeholder.co"} 
-                alt={`${connect.firstName}'s avatar`} 
+                src={photoUrl || "https://placeholder.co"} 
+                alt={`${firstName}'s avatar`} 
               />
             </div>
           </div>
@@ -55,41 +58,38 @@ const Connections = () =>{
           <div className="flex-1 text-center sm:text-left">
             {/* Full Name */}
             <h2 className="text-xl font-bold text-base-content">
-              {connect.firstName} {connect.lastName}
+              {firstName} {lastName}
             </h2>
 
             {/* Badges for Age and Gender */}
             <div className="flex flex-wrap justify-center sm:justify-start gap-2 my-1.5">
-              {connect.age && (
+              {age && (
                 <span className="badge badge-outline badge-sm font-semibold">
-                  {connect.age} Years Old
+                  {age} Years Old
                 </span>
               )}
-              {connect.gender && (
+              {gender && (
                 <span className="badge badge-secondary badge-sm capitalize">
-                  {connect.gender}
+                  {gender}
                 </span>
               )}
             </div>
 
             {/* About Blurb Section */}
-            {connect.about && (
+            {about && (
               <p className="text-sm text-base-content/70 italic mt-1 max-w-md line-clamp-2">
-                {connect.about}
+                {about}
               </p>
             )}
           </div>
-
-          {/* Action Buttons Option */}
-          <div className="flex gap-2 sm:self-center">
-            <button className="btn btn-primary btn-sm rounded-xl">Chat</button>
-          </div>
+<button className="btn btn-success">Accept</button>
+<button className="btn btn-error">Reject</button>
         </div>
       );
     })}
   </div>
 </div>
-
     )
 }
-export default Connections
+
+export default Requests;
