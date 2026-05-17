@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const requestSlice = createSlice({
     name:'request',
@@ -7,8 +7,10 @@ const requestSlice = createSlice({
         addRequest:(state,action)=>{
             return action.payload
         },
-        removeRequest:()=>{
-            return null
+        removeRequest:(state,action)=>{
+            console.log('rm state-----',current(state));
+            console.log('rm pay-----',action.payload);
+            return state.filter((curr)=>{return curr._id != action.payload})
         }
     }
 });

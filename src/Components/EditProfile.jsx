@@ -8,14 +8,14 @@ import { addUser } from "../utils/slices/userSlice";
 
 const EditProfile = () =>{
 
-  const user = useSelector((store)=>{return store.user});
+  const user = useSelector((store)=>{return store?.user});
   const dispatch = useDispatch();
-  const [firstName,setFirstName] = useState(user.firstName);
-  const [lastName,setLastName] = useState(user.lastName)
-  const [photoUrl,setPhotoUrl] = useState(user.photoUrl);
-  const [about,setAbout] = useState(user.about);
-  const [age,setAge] = useState(user.age);
-  const [gender,setGender] = useState(user.gender);
+  const [firstName,setFirstName] = useState(user?.firstName);
+  const [lastName,setLastName] = useState(user?.lastName)
+  const [photoUrl,setPhotoUrl] = useState(user?.photoUrl);
+  const [about,setAbout] = useState(user?.about);
+  const [age,setAge] = useState(user?.age);
+  const [gender,setGender] = useState(user?.gender);
   const [updateError,setUpdateError] = useState(null);
   const [showToast,setShowToast] = useState(false);
 
@@ -35,7 +35,7 @@ const EditProfile = () =>{
 
   }
 
-
+  if(!user) return <h1>User is not present</h1>
     return user && (
       <>
       <div>

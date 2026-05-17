@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequest } from "../utils/slices/requestSlice";
+import { addRequest, removeRequest } from "../utils/slices/requestSlice";
 
 const Requests = () =>{
 
@@ -17,6 +17,15 @@ const Requests = () =>{
         }
     }
 
+    const reviewRequest = async(status,_id) =>{
+        try {  
+        await axios.patch(`${BASE_URL}/connection/review/${status}/${_id}`,{},{withCredentials:true});
+            dispatch(removeRequest(_id));
+        } catch (error) {
+         console.log(error);
+        }
+    }
+
     useEffect(()=>{
         fetchAllRequests();
     },[])
@@ -28,10 +37,10 @@ const Requests = () =>{
   {/* Header Section */}
   <div className="text-center mb-8">
     <h1 className="text-3xl font-extrabold tracking-tight text-base-content">
-     All Requests
+     Received Requests
     </h1>
     <p className="text-sm text-base-content/60 mt-1">
-      You have total {requests.length} requests
+      You have received total {requests.length} requests
     </p>
   </div>
 
@@ -82,8 +91,8 @@ const Requests = () =>{
               </p>
             )}
           </div>
-<button className="btn btn-success">Accept</button>
-<button className="btn btn-error">Reject</button>
+<button className="btn btn-success" onClick={()=>{reviewRequest("accepted",request._id)}}>Accept</button>
+<button className="btn btn-error" onClick={()=>{reviewRequest("rejected",request._id)}}>Reject</button>
         </div>
       );
     })}

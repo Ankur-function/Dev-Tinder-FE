@@ -28,3 +28,5 @@
 - Show Toast Message on save profile
 - New page to see all my connected requests
 - New page to see all my received requests
+- Feature :- Accept/Reject Received requests
+- Feature :- Send Interest/Ignored on Feed page
