@@ -1,7 +1,17 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
+import { useState } from "react"
 
 const Premium = () => {
+
+    const [isPremiumUser,setIsPremiumUser] = useState(false);
+
+    const verifyPremiumUser = async() => {
+        const resp = await axios.get(`${BASE_URL}/payment/premium/verify`,{withCredentials:true});
+        console.log(resp);
+        
+        setIsPremiumUser(resp.data.isPremiumUser)
+    }
 
 const handlePaymentForm = async(type) => {
     try {
@@ -24,6 +34,7 @@ const handlePaymentForm = async(type) => {
         theme: {
           color: '#F37254'
         },
+        handler: verifyPremiumUser
       };
          const rzp = new window.Razorpay(options);
         rzp.open();
@@ -33,7 +44,7 @@ const handlePaymentForm = async(type) => {
         
     }
 }
-    return (
+    return isPremiumUser ? 'User Is a Premium Member' :(
         <div className="m-10">
             <div className="flex w-full flex-col lg:flex-row">
   <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
