@@ -30,3 +30,17 @@
 - New page to see all my received requests
 - Feature :- Accept/Reject Received requests
 - Feature :- Send Interest/Ignored on Feed page
+
+# Razorpay Payment Gateway Integration
+
+- Sign Up on Razorpay and complete KYC
+- Created an UI for premium page
+- Creating an API for Create Order
+- Added my key and secret in env file
+- Initialze Razorpay in utils
+- Creating order on Razorpay
+- Create schema and model
+- Saved the order in payments collection
+- Make the API dynamic
+- Setup Razorpay webhook on your live api
+- 

@@ -34,7 +34,7 @@ const Requests = () =>{
     if (requests && requests.length === 0) return <h1>No Requests Available</h1>
     return (
                <div className="flex flex-col items-center justify-center p-4 my-10 max-w-2xl mx-auto">
-  {/* Header Section */}
+  {/* Header Section */}connections
   <div className="text-center mb-8">
     <h1 className="text-3xl font-extrabold tracking-tight text-base-content">
      Received Requests
