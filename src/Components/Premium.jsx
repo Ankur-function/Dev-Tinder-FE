@@ -1,6 +1,6 @@
 import axios from "axios"
 import { BASE_URL } from "../utils/constants"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Premium = () => {
 
@@ -13,11 +13,18 @@ const Premium = () => {
         setIsPremiumUser(resp.data.isPremiumUser)
     }
 
+    useEffect(()=>{
+        const verifyPremiumUserOnRender = async() => {
+        const resp = await axios.get(`${BASE_URL}/payment/premium/verify`,{withCredentials:true});
+        console.log('verifyPremiumUserOnRender==================',resp);
+        setIsPremiumUser(resp.data.isPremiumUser)
+    }
+        verifyPremiumUserOnRender()
+    },[])
+
 const handlePaymentForm = async(type) => {
     try {
         const order = await axios.post(`${BASE_URL}/payment/createOrder`,{membershipType:type},{withCredentials:true});
-        console.log(order);
-
         const {notes,amount,currency,orderId} = order.data.data;
             const options = {
         key: order.data.keyId, // Replace with your Razorpay key_id
