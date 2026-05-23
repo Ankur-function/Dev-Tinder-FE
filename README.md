@@ -43,4 +43,30 @@
 - Saved the order in payments collection
 - Make the API dynamic
 - Setup Razorpay webhook on your live api
-- 
+
+# Real Time Chat Using Websocket(Socket.io)
+
+    Socket.io is a library that enables low-latency, bidirectional and event-based communication between a client and a server. 
+
+- Build the UI for Chat Window on chat/:targetUserId
+
+- Setup socket.io in backend
+- Setup socket.io in frontend
+- Intialize the chat
+- createSocketConnection
+
+
+
+
+// Homework feature :- 
+
+1) Build on Online/Offline feature on connections and chat page(green/red dot). and also include last seen 2 hours ago/5 min ago etc.
+
+2) chat messages can grow very large and currently i am fetching all messages at once. which can slow down our UI,so instead limit 
+    fetching the messages from database. and build pagination type of feature like when we scroll up loads only 10 messages at a time.
+
+# Project ideas :-
+
+1) Build Chess games
+2) Build Tic Tac Toe game
+3) Build TypeRacer type of game using websockets. (this is very interesting).

@@ -8,7 +8,7 @@ import UserCard from "./UserCard";
 const Feed = () => {
     const dispatch = useDispatch();
     const feedsData = useSelector((store)=>{return store.feed});
-console.log(feedsData);
+console.log('feedsData=============',feedsData);
 
     const getFeeds = async() =>{
         const feeds = await axios.get(`${BASE_URL}/user/feed`,{withCredentials:true});
@@ -19,7 +19,7 @@ console.log(feedsData);
         if (!feedsData) {
         getFeeds();
         }
-    })
+    },[])
 
     if(!feedsData) return
     if (feedsData.length <=0) return <h1 className="flex justify-center">No Feeds Available </h1> 
